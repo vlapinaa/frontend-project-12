@@ -1,0 +1,30 @@
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    // margin: 10px 0;
+    padding-top: 10px;
+
+    &__logo {
+        opacity: 80%;
+        width: 80px;
+    }
+}
+
+.exit-chat {
+    background-color: #87f805;
+    border: 5px solid #87f805;
+    border-radius: 20px;
+    margin-top: 10px;
+    font-family: Copperplate;
+    width: 100px;
+    height: 40px;
+
+}
+
+.exit-chat:hover {
+    background-color: #282c34;
+    border: 5px solid #282c34;
+    ;
+    color: #87f805;
+}

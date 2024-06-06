@@ -1,0 +1,24 @@
+.auth-form {
+    width: 50%;
+    padding: 50px;
+    margin-bottom: 5%;
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    font-family: Copperplate, fantasy !important;
+
+    &__submit {
+        background-color: rgb(230, 87, 151) !important;
+        border-color: rgb(230, 87, 151) !important;
+    }
+}
+
+.auth-signup {
+    &__link {
+        color: rgb(230, 87, 151) !important;
+    }
+
+    &__link:hover {
+        background-color: rgb(251, 178, 211);
+        color: rgb(61, 58, 58) !important;
+    }
+}
