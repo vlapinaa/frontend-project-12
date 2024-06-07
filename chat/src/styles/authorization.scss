@@ -1,24 +1,74 @@
 .auth-form {
-    width: 50%;
-    padding: 50px;
-    margin-bottom: 5%;
-    border-radius: 20px;
-    background-color: rgb(255, 255, 255);
+    display: flex;
     font-family: Copperplate, fantasy !important;
 
     &__submit {
-        background-color: rgb(230, 87, 151) !important;
-        border-color: rgb(230, 87, 151) !important;
+        font-weight: 400;
+        color: #382b22;
+        font-family: Copperplate, fantasy !important;
+        font-size: 20px;
+        padding: 8px 15px;
+        background: #fff0f0;
+        border: 2px solid #b18597;
+        border-radius: 0.75em;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        -webkit-transition: background 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1);
+        transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), background 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1);
+    }
+
+    &__submit::before {
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #f9c4d2;
+        border-radius: inherit;
+        -webkit-box-shadow: 0 0 0 2px #b18597, 0 0.625em 0 0 #ffe3e2;
+        box-shadow: 0 0 0 2px #b18597, 0 0.625em 0 0 #ffe3e2;
+        -webkit-transform: translate3d(0, 0.75em, -1em);
+        transform: translate3d(0, 0.75em, -1em);
+        transition: transform 150ms cubic-bezier(0, 0, 0.58, 1), box-shadow 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-transform 150ms cubic-bezier(0, 0, 0.58, 1), -webkit-box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
+    }
+
+    &__submit:hover {
+        background: #ffe9e9;
+        -webkit-transform: translate(0, 0.25em);
+        transform: translate(0, 0.25em);
+    }
+
+    &__submit:hover::before {
+        -webkit-box-shadow: 0 0 0 2px #b18597, 0 0.5em 0 0 #ffe3e2;
+        box-shadow: 0 0 0 2px #b18597, 0 0.5em 0 0 #ffe3e2;
+        -webkit-transform: translate3d(0, 0.5em, -1em);
+        transform: translate3d(0, 0.5em, -1em);
+    }
+
+    &__submit:active {
+        background: #ffe9e9;
+        -webkit-transform: translate(0em, 0.75em);
+        transform: translate(0em, 0.75em);
+    }
+
+    &__submit:active::before {
+        -webkit-box-shadow: 0 0 0 2px #b18597, 0 0 #ffe3e2;
+        box-shadow: 0 0 0 2px #b18597, 0 0 #ffe3e2;
+        -webkit-transform: translate3d(0, 0, -1em);
+        transform: translate3d(0, 0, -1em);
     }
 }
 
 .auth-signup {
     &__link {
-        color: rgb(230, 87, 151) !important;
+        color: #d56284 !important;
     }
 
     &__link:hover {
-        background-color: rgb(251, 178, 211);
+        background-color: #ffe9e9;
         color: rgb(61, 58, 58) !important;
     }
 }

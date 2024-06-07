@@ -15,7 +15,11 @@
     padding-left: 15px;
     background-color: #f7f7f7;
     font-family: Copperplate !important;
-    font-size: 25px;
+    // font-family: "Comforter", cursive;
+    font-weight: 400;
+    font-style: normal;
+
+    font-size: 30px;
 }
 
 .messages-body {
@@ -40,13 +44,16 @@
 }
 
 .message-username {
-    color: #ce5f7d;
+    color: #282c34;
+    font-family: Copperplate !important;
+    font-weight: 600;
 }
 
 .message-body {
     color: #282c34;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
+    font-family: "Anonymous Pro", monospace;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .messages-actions {

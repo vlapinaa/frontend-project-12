@@ -1,0 +1,20 @@
+.back-login {
+    display: flex;
+    width: 100%;
+    justify-content: start;
+    align-items: center;
+
+    &__svg {
+        color: #b18597;
+        width:40px;
+    }
+
+    &__svg:hover {
+        color: #282c34;
+    }
+
+    &__text {
+        margin: 0;
+        font-family: Copperplate, fantasy !important;
+    }
+}

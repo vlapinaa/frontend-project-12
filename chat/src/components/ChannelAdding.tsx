@@ -53,7 +53,9 @@ function ChannelAdding() {
         name: "is-exist",
         skipAbsent: false,
         test(value, context) {
-          const doubleName = channels.some(({ name }) => name === value);
+          const doubleName = channels.some(
+            ({ name }) => name.toLowerCase() === value.toLowerCase(),
+          );
           return doubleName
             ? context.createError({ message: t("shema.doubleName") })
             : true;

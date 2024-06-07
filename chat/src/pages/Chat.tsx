@@ -10,7 +10,7 @@ import {
 } from "store/chatSlice";
 import api from "utils/api";
 
-import Layout from "layouts";
+import MainLayout from "layouts/main";
 import type { RootState, AppDispatch } from "store/index";
 import Messages from "components/MessageComponent";
 import Channels from "components/ChannelsComponent";
@@ -24,6 +24,7 @@ function ChatPage() {
 
   const messages = useSelector((state: RootState) => state.chat.messages);
   const username = useSelector((state: RootState) => state.auth.name);
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const messagesContainer = useRef<HTMLInputElement>(null);
 
@@ -32,12 +33,13 @@ function ChatPage() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
+    console.log("fetchChanells");
     dispatch(fetchChanells());
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   useEffect(() => {
     dispatch(fetchMessages());
-  }, [dispatch, activeChannel]);
+  }, [dispatch, activeChannel, token]);
 
   useEffect(() => {
     if (!activeChannel) {
@@ -86,7 +88,7 @@ function ChatPage() {
   );
 
   return (
-    <Layout>
+    <MainLayout>
       <div className="d-flex justify-content-center align-items-center w-100 h-100">
         <div className="chat-container shadow">
           <div className="w-25 h-100">
@@ -109,7 +111,7 @@ function ChatPage() {
           </div>
         </div>
       </div>
-    </Layout>
+    </MainLayout>
   );
 }
 

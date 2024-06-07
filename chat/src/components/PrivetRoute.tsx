@@ -1,5 +1,7 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { RootState } from "store";
 
 function PrivateRoute({
   Component,
@@ -8,15 +10,13 @@ function PrivateRoute({
   Component: any;
   unauthorizedOnly?: boolean;
 }) {
+  const token = useSelector((state: RootState) => state.auth.token);
+
   if (unauthorizedOnly) {
-    return localStorage.getItem("token") ? <Navigate to="/" /> : <Component />;
+    return token ? <Navigate to="/" /> : <Component />;
   }
 
-  return localStorage.getItem("token") ? (
-    <Component />
-  ) : (
-    <Navigate to="/login" />
-  );
+  return token ? <Component /> : <Navigate to="/login" />;
 }
 
 PrivateRoute.defaultProps = {

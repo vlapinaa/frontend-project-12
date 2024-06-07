@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "utils/api";
+import { redirect } from "react-router-dom";
 
 type State = {
   token: string;
@@ -34,9 +35,9 @@ export const authSlice = createSlice({
       state.token = action.payload.token;
       state.name = action.payload.username;
 
-      window.location.href = "/";
       localStorage.setItem("token", action.payload.token);
       localStorage.setItem("username", action.payload.username);
+      redirect("/");
     });
     builder.addCase(login.rejected, (state, action) => {
       state.isLoading = false;
