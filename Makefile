@@ -1,8 +1,8 @@
 install:
-    npm i
-
-build:
-    npm run build
+	npm ci
 
 start:
-    start-server -s ./chat/build
+	start-server -s ./chat/build
+
+build:
+	npm run build
