@@ -6,36 +6,40 @@
     "auth": {
       "login": {
         "name": "Логин",
-          "placeholder": "Введите Логин"
+        "placeholder": "Введите Логин"
       },
       "password": {
         "name": "Пароль",
-          "placeholder": "Введите пароль"
+        "placeholder": "Введите пароль"
       },
       "buttonSubmit": "Войти",
-        "authSignup": {
+      "authSignup": {
         "text": "Нет аккаунта? ",
-          "link": "Зарегистрируйся"
+        "link": "Зарегистрируйся"
       }
     },
     "signup": {
       "header": "Регистрация",
-        "form": {
+      "form": {
         "username": "Имя пользователя: ",
-          "usernamePlaceholder": "Введите имя пользователя",
-            "password": "Пароль:",
-              "passwordPlaceholder": "Придумайте пароль",
-                "confirmpassPlaceholder": "Повторите пароль"
+        "usernamePlaceholder": "Введите имя пользователя",
+        "password": "Пароль:",
+        "passwordPlaceholder": "Придумайте пароль",
+        "confirmpassPlaceholder": "Повторите пароль"
+      },
+      "auth": {
+        "text": "У вас уже есть аккаунт?",
+        "link": "Тогда войдите"
       },
       "buttonSubmit": "Зарегистрироваться"
     },
     "chat": {
       "cancel": "Отменить",
-        "channels": {
+      "channels": {
         "header": "КАНАЛЫ",
-          "dropdown": {
+        "dropdown": {
           "delete": "Удалить",
-            "editName": "Переименовать"
+          "editName": "Переименовать"
         },
         "modalDelete": {
           "text": "Вы уверены?"
@@ -45,7 +49,7 @@
         },
         "modalAdding": {
           "text": "Новый канал",
-            "submit": "Добавить"
+          "submit": "Добавить"
         }
       },
       "messagePlaceholder": "Введите сообщение",

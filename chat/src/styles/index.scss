@@ -3,6 +3,14 @@
 @use "signup";
 @use "chat";
 @use "channels";
+@use "messages";
+
+
+.font-secondary {
+  font-family: "Anonymous Pro", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
 
 html,
 body,
@@ -12,6 +20,7 @@ body,
 
 body {
   position: relative;
+  font-family: Copperplate;
   background-color: #75ff03;
   background-image: linear-gradient(147deg, #75ff03 4%, #f2cc10 33%, #cd42a6 89%);
 }
@@ -44,7 +53,7 @@ button {
 .layout-auth {
   display: flex;
   width: 50%;
-  height: 400px;
+  height: 430px;
   background-color: #ffffff;
   padding: 20px;
   margin-bottom: 5%;

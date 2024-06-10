@@ -82,42 +82,24 @@ function Channels({ channels, activeChannel, setChannels }: ChannelsProps) {
         <ChannelAdding />
       </div>
 
-      <div className="channels__list channel-list d-flex flex-column">
+      <div className="channels__list channels-list font-secondary">
         {channels.map((channel) => {
-          if (channel.removable) {
-            return (
-              <button
-                className={
-                  channel.id === activeChannel?.id
-                    ? "channel-list__activeChannel-name p-3 w-100 d-flex justify-content-between"
-                    : "channel-list__name p-3 w-100 d-flex justify-content-between"
-                }
-                type="button"
-                key={channel.id}
-                onClick={() => setChannels(channel)}
-              >
-                <div># {channel.name}</div>
+          return (
+            <button
+              className={`channels-list__item ${channel.id === activeChannel?.id ? "channels-list__item--active" : ""}`}
+              type="button"
+              key={channel.id}
+              onClick={() => setChannels(channel)}
+            >
+              <div># {channel.name}</div>
+              {channel.removable && (
                 <Dropdown
                   id={channel.id}
                   setId={setId}
                   setShow={setShow}
                   setShowEdit={setShowEdit}
                 />
-              </button>
-            );
-          }
-          return (
-            <button
-              className={
-                channel.name === activeChannel?.name
-                  ? "channel-list__activeChannel-name p-3 w-100 d-flex justify-content-between"
-                  : "channel-list__name p-3 w-100 d-flex justify-content-between"
-              }
-              type="button"
-              key={channel.id}
-              onClick={() => setChannels(channel)}
-            >
-              <div># {channel.name}</div>
+              )}
             </button>
           );
         })}
@@ -127,26 +109,29 @@ function Channels({ channels, activeChannel, setChannels }: ChannelsProps) {
         show={isShow}
         onHide={() => setShow(false)}
         className="delete-modal"
+        centered
       >
         <Modal.Header closeButton className="delete-modal__header">
           <Modal.Title>{t("chat.channels.modalDelete.text")}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body className="delete-modal__body">
-          <Button
-            className="delete-modal__submit"
-            type="submit"
-            onClick={removeChannel}
-          >
-            {t("chat.channels.dropdown.delete")}
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={() => setShow(false)}
-            className="delete-modal__cancel"
-          >
-            {t("chat.cancel")}
-          </Button>
+          <div className="d-flex justify-content-end">
+            <Button
+              variant="secondary"
+              onClick={() => setShow(false)}
+              className="delete-modal__cancel"
+            >
+              {t("chat.cancel")}
+            </Button>
+            <Button
+              className="delete-modal__submit"
+              type="submit"
+              onClick={removeChannel}
+            >
+              {t("chat.channels.dropdown.delete")}
+            </Button>
+          </div>
         </Modal.Body>
       </Modal>
 
@@ -154,6 +139,7 @@ function Channels({ channels, activeChannel, setChannels }: ChannelsProps) {
         show={isShowEdit}
         onHide={() => setShowEdit(false)}
         className="edit-modal"
+        centered
       >
         <Modal.Header closeButton className="edit-modal__header">
           <Modal.Title>{t("chat.channels.modalEditChannel.text")}</Modal.Title>

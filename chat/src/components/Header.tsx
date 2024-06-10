@@ -1,5 +1,4 @@
 import React from "react";
-import felixLogo from "images/felixLogo.png";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -13,8 +12,8 @@ function Header() {
   return (
     <div className="header">
       <Link to="/" className="header__logo">
-        <img src={felixLogo} alt="felix" />
-        <p className="header__logo__text">Hexlet Chat</p>
+        <img src="https://i.ibb.co/P10WgvT/felix-Logo.png" alt="felix" />
+        <p className="header__text">Hexlet Chat</p>
       </Link>
       {localStorage.getItem("token") && (
         <button type="button" className="exit-chat" onClick={handleExit}>

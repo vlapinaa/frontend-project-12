@@ -12,8 +12,8 @@ import api from "utils/api";
 
 import MainLayout from "layouts/main";
 import type { RootState, AppDispatch } from "store/index";
-import Messages from "components/MessageComponent";
-import Channels from "components/ChannelsComponent";
+import Messages from "components/Message";
+import Channels from "components/Channels";
 import MessageActions from "components/MessageActions";
 import type { Channel, Message } from "types";
 
@@ -33,7 +33,6 @@ function ChatPage() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    console.log("fetchChanells");
     dispatch(fetchChanells());
   }, [dispatch, token]);
 
@@ -99,15 +98,19 @@ function ChatPage() {
             />
           </div>
 
-          <div className="messages-container d-flex flex-column w-75 h-100">
-            <div className="messages-heading d-flex align-items-center">
+          <div className="messages-area flex-column">
+            <div className="messages-area__heading d-flex align-items-center">
               #{activeChannel?.name}
             </div>
             <Messages
               messages={activeMessages}
               messagesContainer={messagesContainer}
+              className="messages-area__body"
             />
-            <MessageActions sendMessage={sendMessage} />
+            <MessageActions
+              sendMessage={sendMessage}
+              className="messages-area__actions"
+            />
           </div>
         </div>
       </div>

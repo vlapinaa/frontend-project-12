@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 
 import { login } from "store/authSlice";
 import type { RootState } from "store/index";
-import felix from "images/felix.png";
 import { useTranslation } from "react-i18next";
 import AuthLayout from "layouts/auth";
 
@@ -42,8 +41,12 @@ function AuthorizationPage() {
   return (
     <AuthLayout>
       <div className="auth-form">
-        <div className="d-flex align-items-center w-50">
-          <img src={felix} alt="felix" className="w-75" />
+        <div className="d-flex align-items-center justify-content-center w-50">
+          <img
+            src="https://i.ibb.co/mhzwn47/felix.png"
+            alt="felix"
+            className="w-75"
+          />
         </div>
         <Formik
           initialValues={initialValues}

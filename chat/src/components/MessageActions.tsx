@@ -4,8 +4,10 @@ import * as filter from "leo-profanity";
 
 function MessageActions({
   sendMessage,
+  className,
 }: {
   sendMessage: (message: string) => void;
+  className?: string;
 }) {
   const [message, setMessage] = useState("");
   const { t } = useTranslation();
@@ -26,12 +28,12 @@ function MessageActions({
 
   return (
     <form
-      className="messages-actions d-flex flex-row justify-content-between align-items-center p-2"
+      className={`messages-actions ${className} `}
       onSubmit={handleSendMessage}
     >
       <input
         type="text"
-        className="input-message"
+        className="messages-actions__input"
         placeholder={t("chat.messagePlaceholder")}
         value={message}
         onChange={handleChange}
@@ -55,5 +57,9 @@ function MessageActions({
     </form>
   );
 }
+
+MessageActions.defaultProps = {
+  className: "",
+};
 
 export default MessageActions;

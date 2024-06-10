@@ -10,7 +10,7 @@ import RegistrationPage from "pages/Registration";
 import ChatPage from "pages/Chat";
 import ErrorPage from "pages/Error";
 
-import PrivateRoute from "components/PrivetRoute";
+import PrivateRoute from "components/PrivateRoute";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "styles/index.scss";

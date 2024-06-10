@@ -11,7 +11,6 @@ import { newuser } from "store/signupSlice";
 import type { RootState } from "store/index";
 import { useTranslation } from "react-i18next";
 import AuthLayout from "layouts/auth";
-import felix_registration from "images/felix_registration.png";
 import { Link } from "react-router-dom";
 
 function SignUp() {
@@ -71,27 +70,12 @@ function SignUp() {
   return (
     <AuthLayout>
       <div className="auth-form">
-        <div className="d-flex flex-column align-items-center w-50">
-          <button type="button" className="back-login">
-            <Link to="/login">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="size-6 back-login__svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m11.25 9-3 3m0 0 3 3m-3-3h7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                />
-              </svg>
-            </Link>
-            <p className="back-login__text">Вход</p>
-          </button>
-          <img src={felix_registration} alt="felix-happy" className="w-75" />
+        <div className="d-flex align-items-center justify-content-center w-50">
+          <img
+            src="https://i.ibb.co/KD0qXch/felix-registration.png"
+            alt="felix-happy"
+            className="w-75"
+          />
         </div>
         <Formik
           initialValues={initialValues}
@@ -155,6 +139,13 @@ function SignUp() {
                 {t("signup.buttonSubmit")}
               </Button>
 
+              <div className="auth-link">
+                <span>{t("signup.auth.text")}</span>
+                <br />
+                <Link to="/login" className="auth-signup__link">
+                  {t("signup.auth.link")}
+                </Link>
+              </div>
               {errorsSignup && (
                 <Alert variant="danger" className="w-100">
                   {errorsSignup}
