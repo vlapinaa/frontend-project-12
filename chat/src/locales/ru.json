@@ -23,7 +23,7 @@
       "form": {
         "username": "Имя пользователя: ",
         "usernamePlaceholder": "Имя пользователя",
-        "password": "Пароль:",
+        "password": "Пароль",
         "passwordPlaceholder": "Пароль",
         "confirmpassPlaceholder": "Подтвердите пароль"
       },
