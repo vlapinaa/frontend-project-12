@@ -1,43 +1,25 @@
 /* eslint-disable jsx-a11y/no-autofocus */
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Alert from "react-bootstrap/Alert";
 import * as yup from "yup";
-import * as formik from "formik";
-import { useSelector, useDispatch } from "react-redux";
+import { Formik, FormikHelpers } from "formik";
+import { useAppDispatch } from "store";
 
-import { newuser } from "store/signupSlice";
-import type { RootState } from "store/index";
+import { createNewUser } from "store/signupSlice";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import MainLayout from "layouts/main";
 
 function SignUp() {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+
   interface FormValues {
     username: string;
     password: string;
     confirmpass: string;
   }
-
-  const error = useSelector((state: RootState) => state.signup.error);
-  const [errorsSignup, setErrorsSignup] = useState("");
-
-  useEffect(() => {
-    if (!error) {
-      return;
-    }
-    if (error.statusCode === 409) {
-      setErrorsSignup("Такой пользователь уже существует");
-    } else {
-      setErrorsSignup("Oops error");
-    }
-  }, [error]);
-
-  const dispatch = useDispatch();
-
-  const { Formik } = formik;
 
   const initialValues: FormValues = {
     username: "",
@@ -63,17 +45,26 @@ function SignUp() {
 
   const handleSubmitForm = async (
     values: FormValues,
-    { setErrors }: formik.FormikHelpers<FormValues>,
+    { setErrors }: FormikHelpers<FormValues>,
   ) => {
-    await dispatch(
-      newuser({ username: values.username, password: values.password }),
+    const response = await dispatch(
+      createNewUser({ username: values.username, password: values.password }),
     );
-    if (errorsSignup) {
-      setErrors({
-        username: " ",
-        password: " ",
-        confirmpass: errorsSignup,
-      });
+
+    if (response.meta.requestStatus === "rejected") {
+      if (response.payload.statusCode === 409) {
+        setErrors({
+          username: " ",
+          password: " ",
+          confirmpass: "Такой пользователь уже существует",
+        });
+      } else {
+        setErrors({
+          username: " ",
+          password: " ",
+          confirmpass: response.payload.message,
+        });
+      }
     }
   };
 
@@ -100,7 +91,6 @@ function SignUp() {
               className="signup-page__form signup-form"
               onSubmit={handleSubmit}
             >
-              {/* <h2 className="signup__h2">{t("signup.header")}</h2> */}
               <Form.Group className="mb-3" controlId="usernameSignUp">
                 <Form.Label>{t("signup.form.username")}</Form.Label>
                 <Form.Control
@@ -149,12 +139,6 @@ function SignUp() {
                   {errors.confirmpass}
                 </Form.Control.Feedback>
               </Form.Group>
-
-              {/* {errorsSignup && (
-                <Alert variant="danger" className="signup-alert">
-                  {errorsSignup}
-                </Alert>
-              )} */}
 
               <Button className="signup-form__submit mb-4" type="submit">
                 {t("signup.buttonSubmit")}

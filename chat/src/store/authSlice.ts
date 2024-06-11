@@ -6,28 +6,43 @@ type State = {
   token: string;
   name: string;
   isLoading: boolean;
-  error: string;
+  error: undefined | string;
 };
 
-export const login: any = createAsyncThunk("auth/login", async (values) => {
-  const { data } = await api.post("/login", values);
-  return data;
-});
+type Values = {
+  username: string;
+  password: string;
+};
+
+export const login = createAsyncThunk(
+  "auth/login",
+  async (values: Values, { rejectWithValue }) => {
+    try {
+      const { data } = await api.post("/login", values);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+const initialState: State = {
+  token: localStorage.getItem("token") || "",
+  name: localStorage.getItem("username") || "",
+  isLoading: false,
+  error: undefined,
+};
 
 export const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    token: localStorage.getItem("token") || "",
-    name: localStorage.getItem("username") || "",
-    isLoading: false,
-    error: "",
-  } as State,
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state) => {
-      state.error = "";
+      state.error = undefined;
       state.isLoading = true;
     });
+
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoading = false;
       state.token = action.payload.token;
@@ -37,6 +52,7 @@ export const authSlice = createSlice({
       localStorage.setItem("username", action.payload.username);
       redirect("/");
     });
+
     builder.addCase(login.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message || "";

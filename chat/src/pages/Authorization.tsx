@@ -1,27 +1,23 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import * as yup from "yup";
-import * as formik from "formik";
-import { useSelector, useDispatch } from "react-redux";
+import { Formik, type FormikHelpers } from "formik";
 import { Link } from "react-router-dom";
 
+import { useAppDispatch } from "store";
+
 import { login } from "store/authSlice";
-import type { RootState } from "store/index";
 import { useTranslation } from "react-i18next";
 import MainLayout from "layouts/main";
 
 function AuthorizationPage() {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+
   interface FormValues {
     username: string;
     password: string;
   }
-
-  const error = useSelector((state: RootState) => state.auth.error);
-
-  const dispatch = useDispatch();
-
-  const { Formik } = formik;
 
   const initialValues: FormValues = {
     username: "",
@@ -35,14 +31,22 @@ function AuthorizationPage() {
 
   const handleSubmitForm = async (
     values: FormValues,
-    { setErrors }: formik.FormikHelpers<FormValues>,
+    { setErrors }: FormikHelpers<FormValues>,
   ) => {
-    await dispatch(login(values));
-    if (error) {
-      setErrors({
-        username: " ",
-        password: t("alert.auth"),
-      });
+    const response = await dispatch(login(values));
+
+    if (response.meta.requestStatus === "rejected") {
+      if (response.payload.statusCode === 401) {
+        setErrors({
+          username: " ",
+          password: t("alert.auth"),
+        });
+      } else {
+        setErrors({
+          username: " ",
+          password: response.payload.message,
+        });
+      }
     }
   };
 
