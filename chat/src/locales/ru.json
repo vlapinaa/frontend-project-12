@@ -25,6 +25,7 @@
         "usernamePlaceholder": "Имя пользователя",
         "password": "Пароль",
         "passwordPlaceholder": "Пароль",
+        "confirmpass": "Подтвердите пароль",
         "confirmpassPlaceholder": "Подтвердите пароль"
       },
       "auth": {

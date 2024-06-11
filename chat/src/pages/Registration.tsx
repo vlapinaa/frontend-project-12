@@ -135,6 +135,7 @@ function SignUp() {
               </Form.Group>
 
               <Form.Group className="mb-4" controlId="confirmpassSignUp">
+                <Form.Label>{t("signup.form.confirmpass")}</Form.Label>
                 <Form.Control
                   name="confirmpass"
                   type="password"
