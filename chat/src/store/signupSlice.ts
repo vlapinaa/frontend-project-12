@@ -48,9 +48,10 @@ export const signupSlice = createSlice({
       state.token = action.payload.token;
       state.name = action.payload.username;
 
+      window.location.href = "/";
+      // redirect("/");
       localStorage.setItem("token", action.payload.token);
       localStorage.setItem("username", action.payload.username);
-      redirect("/");
     });
 
     builder.addCase(createNewUser.rejected, (state, action) => {

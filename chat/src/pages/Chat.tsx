@@ -78,8 +78,14 @@ function ChatPage() {
   }, [dispatch]);
 
   useEffect(() => {
-    socket.on("newMessage", (message: Message) => {
-      dispatch(addMessage(message));
+    // const newMessageEvent = (message: Message) => {
+    //   dispatch(addMessage(message));
+    // };
+    // socket.on("newMessage", newMessageEvent);
+
+    socket.on("newMessage", (payload) => {
+      dispatch(addMessage(payload));
+      console.log("socket");
     });
 
     return () => {
