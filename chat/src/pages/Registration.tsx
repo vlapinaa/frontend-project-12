@@ -29,9 +29,9 @@ function SignUp() {
       return;
     }
     if (error.statusCode === 409) {
-      setErrorsSignup("Упс, имя пользователя уже существует");
+      setErrorsSignup("Такой пользователь уже существует");
     } else {
-      setErrorsSignup("Oops no user");
+      setErrorsSignup("Oops error");
     }
   }, [error]);
 
