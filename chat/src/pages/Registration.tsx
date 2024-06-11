@@ -10,8 +10,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { newuser } from "store/signupSlice";
 import type { RootState } from "store/index";
 import { useTranslation } from "react-i18next";
-import AuthLayout from "layouts/auth";
 import { Link } from "react-router-dom";
+import MainLayout from "layouts/main";
 
 function SignUp() {
   const { t } = useTranslation();
@@ -61,20 +61,30 @@ function SignUp() {
       .required(t("shema.required")),
   });
 
-  const handleSubmitForm = async (values: FormValues) => {
+  const handleSubmitForm = async (
+    values: FormValues,
+    { setErrors }: formik.FormikHelpers<FormValues>,
+  ) => {
     await dispatch(
       newuser({ username: values.username, password: values.password }),
     );
+    if (errorsSignup) {
+      setErrors({
+        username: " ",
+        password: " ",
+        confirmpass: errorsSignup,
+      });
+    }
   };
 
   return (
-    <AuthLayout>
-      <div className="auth-form">
-        <div className="d-flex align-items-center justify-content-center w-50">
+    <MainLayout>
+      <div className="signup-page">
+        <div className="signup-page__image">
           <img
             src="https://i.ibb.co/KD0qXch/felix-registration.png"
             alt="felix-happy"
-            className="w-75"
+            className=""
           />
         </div>
         <Formik
@@ -85,7 +95,11 @@ function SignUp() {
           validateOnBlur={false}
         >
           {({ handleSubmit, errors, touched, values, handleChange }) => (
-            <Form noValidate className="signup" onSubmit={handleSubmit}>
+            <Form
+              noValidate
+              className="signup-page__form signup-form"
+              onSubmit={handleSubmit}
+            >
               {/* <h2 className="signup__h2">{t("signup.header")}</h2> */}
               <Form.Group className="mb-3" controlId="usernameSignUp">
                 <Form.Label>{t("signup.form.username")}</Form.Label>
@@ -97,7 +111,7 @@ function SignUp() {
                   onChange={handleChange}
                   isValid={touched.username && !errors.username}
                   isInvalid={!!errors.username}
-                  className="signup__username"
+                  className="signup-form__username"
                 />
                 <Form.Control.Feedback type="invalid">
                   {errors.username}
@@ -135,7 +149,13 @@ function SignUp() {
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <Button className="signup__submit mb-4" type="submit">
+              {/* {errorsSignup && (
+                <Alert variant="danger" className="signup-alert">
+                  {errorsSignup}
+                </Alert>
+              )} */}
+
+              <Button className="signup-form__submit mb-4" type="submit">
                 {t("signup.buttonSubmit")}
               </Button>
 
@@ -146,16 +166,11 @@ function SignUp() {
                   {t("signup.auth.link")}
                 </Link>
               </div>
-              {errorsSignup && (
-                <Alert variant="danger" className="w-100">
-                  {errorsSignup}
-                </Alert>
-              )}
             </Form>
           )}
         </Formik>
       </div>
-    </AuthLayout>
+    </MainLayout>
   );
 }
 

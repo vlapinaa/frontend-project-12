@@ -42,7 +42,6 @@ button {
 
   &__page {
     height: calc(100% - 80px);
-    // height: 100%;
     padding: 30px 0px;
     display: flex;
     justify-content: center;
@@ -52,15 +51,14 @@ button {
 
 .layout-auth {
   display: flex;
-  width: 50%;
-  height: 430px;
+  width: 60%;
+  height: 500px;
   background-color: #ffffff;
   padding: 20px;
   margin-bottom: 5%;
   border-radius: 20px;
 
   &__page {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;

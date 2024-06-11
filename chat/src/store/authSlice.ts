@@ -9,13 +9,10 @@ type State = {
   error: string;
 };
 
-export const login: any = createAsyncThunk(
-  "auth/login",
-  async (values: any) => {
-    const { data } = await api.post("/login", values);
-    return data;
-  },
-);
+export const login: any = createAsyncThunk("auth/login", async (values) => {
+  const { data } = await api.post("/login", values);
+  return data;
+});
 
 export const authSlice = createSlice({
   name: "auth",
@@ -28,6 +25,7 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state) => {
+      state.error = "";
       state.isLoading = true;
     });
     builder.addCase(login.fulfilled, (state, action) => {

@@ -1,6 +1,5 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
-import Alert from "react-bootstrap/Alert";
 import * as yup from "yup";
 import * as formik from "formik";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,7 +8,7 @@ import { Link } from "react-router-dom";
 import { login } from "store/authSlice";
 import type { RootState } from "store/index";
 import { useTranslation } from "react-i18next";
-import AuthLayout from "layouts/auth";
+import MainLayout from "layouts/main";
 
 function AuthorizationPage() {
   const { t } = useTranslation();
@@ -34,14 +33,23 @@ function AuthorizationPage() {
     password: yup.string().required(t("shema.required")),
   });
 
-  const handleSubmitForm = async (values: FormValues) => {
+  const handleSubmitForm = async (
+    values: FormValues,
+    { setErrors }: formik.FormikHelpers<FormValues>,
+  ) => {
     await dispatch(login(values));
+    if (error) {
+      setErrors({
+        username: " ",
+        password: t("alert.auth"),
+      });
+    }
   };
 
   return (
-    <AuthLayout>
-      <div className="auth-form">
-        <div className="d-flex align-items-center justify-content-center w-50">
+    <MainLayout>
+      <div className="auth-form shadow">
+        <div className="auth-form__image-container">
           <img
             src="https://i.ibb.co/mhzwn47/felix.png"
             alt="felix"
@@ -59,7 +67,7 @@ function AuthorizationPage() {
             <Form
               noValidate
               onSubmit={handleSubmit}
-              className="d-flex flex-column justify-items-between align-items-between"
+              className="auth-form__form d-flex flex-column justify-items-between align-items-between"
             >
               <Form.Group className="mb-3" controlId="username">
                 <Form.Label>{t("auth.login.name")}</Form.Label>
@@ -103,16 +111,11 @@ function AuthorizationPage() {
                   {t("auth.authSignup.link")}
                 </Link>
               </div>
-              {error && (
-                <Alert variant="danger" className="auth-alert">
-                  Oops no user
-                </Alert>
-              )}
             </Form>
           )}
         </Formik>
       </div>
-    </AuthLayout>
+    </MainLayout>
   );
 }
 

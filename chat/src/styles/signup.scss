@@ -1,16 +1,35 @@
-.signup {
+.signup-page {
+    display: flex;
+    width: 700px;
+    height: 500px;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+
+    &__image {
+        width: 350px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            width: 250px;
+        }
+    }
+
+    &__form {
+        width: 350px;
+    }
+}
+
+.signup-form {
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: center;
-
-    &__form {
-        padding: 50px;
-        border-radius: 20px;
-        background-color: rgb(255, 255, 255);
-        width: 500px;
-        height: 600px;
-    }
+    height: 100%;
 
     &__submit {
         font-weight: 400;
@@ -79,6 +98,7 @@
     display: flex;
     flex-direction: column;
     justify-content: start;
+
     &__link {
         color: #d56284 !important;
     }
@@ -87,4 +107,9 @@
         background-color: #ffe9e9;
         color: rgb(61, 58, 58) !important;
     }
+}
+
+.signup-alert {
+    font-size: 15px;
+    padding: 8px;
 }

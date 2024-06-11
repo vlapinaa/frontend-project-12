@@ -6,26 +6,26 @@
     "auth": {
       "login": {
         "name": "Логин",
-        "placeholder": "Введите Логин"
+        "placeholder": "Ваш ник"
       },
       "password": {
         "name": "Пароль",
-        "placeholder": "Введите пароль"
+        "placeholder": "Пароль"
       },
       "buttonSubmit": "Войти",
       "authSignup": {
         "text": "Нет аккаунта? ",
-        "link": "Зарегистрируйся"
+        "link": "Регистрация"
       }
     },
     "signup": {
       "header": "Регистрация",
       "form": {
         "username": "Имя пользователя: ",
-        "usernamePlaceholder": "Введите имя пользователя",
+        "usernamePlaceholder": "Имя пользователя",
         "password": "Пароль:",
         "passwordPlaceholder": "Придумайте пароль",
-        "confirmpassPlaceholder": "Повторите пароль"
+        "confirmpassPlaceholder": "Подтвердите пароль"
       },
       "auth": {
         "text": "У вас уже есть аккаунт?",
@@ -62,8 +62,11 @@
       "max": "Не более 20 символов",
       "required": "Обязательное поле",
       "minPassword": "Не менее 6 символов",
-      "confirmpass": "Пароли не совпадают",
+      "confirmpass": "Пароли должны совпадать",
       "doubleName": "Имя уже существует"
+    },
+    "alert": {
+      "auth": "Неверные имя пользователя или пароль"
     }
   }
 }
