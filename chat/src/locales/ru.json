@@ -24,7 +24,7 @@
         "username": "Имя пользователя: ",
         "usernamePlaceholder": "Имя пользователя",
         "password": "Пароль:",
-        "passwordPlaceholder": "Придумайте пароль",
+        "passwordPlaceholder": "Пароль",
         "confirmpassPlaceholder": "Подтвердите пароль"
       },
       "auth": {
