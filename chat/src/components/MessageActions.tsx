@@ -35,6 +35,7 @@ function MessageActions({
       <input
         type="text"
         className="messages-actions__input"
+        aria-label="Новое сообщение"
         placeholder={t("chat.messagePlaceholder")}
         value={message}
         onChange={handleChange}
