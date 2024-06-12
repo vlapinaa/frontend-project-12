@@ -5,8 +5,8 @@
     },
     "auth": {
       "login": {
-        "name": "Логин",
-        "placeholder": "Ваш ник"
+        "name": "Ваш ник",
+        "placeholder": "Логин"
       },
       "password": {
         "name": "Пароль",
