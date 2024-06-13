@@ -2,7 +2,7 @@ install:
 	npm ci
 
 start:
-	npx start-server
+	npx start-server -s ./chat/build
 
 build:
 	rm -rf chat/build
@@ -12,4 +12,4 @@ start-frontend:
 	make -C chat start
 
 start-backend:
-	npx start-server
+	npx start-server -s ./chat/build
