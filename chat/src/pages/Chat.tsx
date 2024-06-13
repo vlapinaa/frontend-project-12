@@ -52,46 +52,39 @@ function ChatPage() {
       setChannels(channel);
     });
 
-    return () => {
-      socket.off("newChannel");
-    };
-  }, [dispatch]);
-
-  useEffect(() => {
     socket.on("removeChannel", () => {
       dispatch(fetchChanells());
     });
 
-    return () => {
-      socket.off("removeChannel");
-    };
-  }, [dispatch]);
-
-  useEffect(() => {
     socket.on("renameChannel", (channel: Channel) => {
       dispatch(renameChannel(channel));
     });
 
-    return () => {
-      socket.off("renameChannel");
-    };
-  }, [dispatch]);
-
-  useEffect(() => {
-    // const newMessageEvent = (message: Message) => {
-    //   dispatch(addMessage(message));
-    // };
-    // socket.on("newMessage", newMessageEvent);
-
     socket.on("newMessage", (payload) => {
       dispatch(addMessage(payload));
-      console.log("socket");
     });
-
-    return () => {
-      socket.off("newMessage");
-    };
   }, [dispatch]);
+
+  // useEffect(() => {
+
+  //   return () => {
+  //     socket.off("removeChannel");
+  //   };
+  // }, [dispatch]);
+
+  // useEffect(() => {
+
+  //   return () => {
+  //     socket.off("renameChannel");
+  //   };
+  // }, [dispatch]);
+
+  // useEffect(() => {
+
+  //   return () => {
+  //     socket.off("newMessage");
+  //   };
+  // }, [dispatch]);
 
   const sendMessage = async (message: string) => {
     try {
