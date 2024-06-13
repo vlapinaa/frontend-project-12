@@ -1,17 +1,15 @@
 install:
 	npm ci
 
-build:
-	npm run build
+start:
+	npx start-server
 
-lint-frontend:
-	make -C chat lint
+build:
+	rm -rf chat/build
+	npm run build
 
 start-frontend:
 	make -C chat start
 
 start-backend:
 	npx start-server
-
-start:
-	make start-backend
