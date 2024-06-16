@@ -19,6 +19,7 @@ interface ChannelsProps {
 
 function Channels({ channels, activeChannel, setChannels }: ChannelsProps) {
   const { t } = useTranslation();
+
   const notifyDelete = () =>
     toast(t("chat.notifiDelete"), {
       position: "top-right",
@@ -31,6 +32,7 @@ function Channels({ channels, activeChannel, setChannels }: ChannelsProps) {
       theme: "light",
       transition: Bounce,
     });
+
   const notifyEdit = () =>
     toast(t("chat.notifiEdit"), {
       position: "top-right",
