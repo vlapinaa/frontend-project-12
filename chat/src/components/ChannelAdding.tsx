@@ -65,7 +65,9 @@ function ChannelAdding() {
 
   const addChannel = async ({ nameChannel }: FormValues) => {
     try {
+      filter.loadDictionary("ru");
       const filterNameChannel = filter.clean(nameChannel);
+
       await api.post("/channels", { name: filterNameChannel });
       notifyChannelAdding();
       handleClose();
