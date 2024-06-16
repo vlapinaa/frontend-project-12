@@ -127,7 +127,7 @@ function Channels({ channels, activeChannel, setChannels }: ChannelsProps) {
               {t("chat.cancel")}
             </Button>
             <Button
-              className="delete-modal__submit"
+              className="delete-modal__submit btn btn-danger"
               type="submit"
               onClick={removeChannel}
             >
