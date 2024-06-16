@@ -20,6 +20,8 @@ interface ChannelsProps {
 function Channels({ channels, activeChannel, setChannels }: ChannelsProps) {
   const { t } = useTranslation();
 
+  // const classChannel = `channels-list__item ${channel.id === activeChannel?.id ? "channels-list__item--active" : ""}`;
+
   const notifyDelete = () =>
     toast(t("chat.notifiDelete"), {
       position: "top-right",
@@ -88,7 +90,11 @@ function Channels({ channels, activeChannel, setChannels }: ChannelsProps) {
         {channels.map((channel) => {
           return (
             <button
-              className={`channels-list__item ${channel.id === activeChannel?.id ? "channels-list__item--active" : ""}`}
+              className={
+                channel.id === activeChannel?.id
+                  ? "w-100 rounded-0 text-start text-truncate btn btn-secondary"
+                  : "w-100 rounded-0 text-start text-truncate btn"
+              }
               type="button"
               key={channel.id}
               onClick={() => setChannels(channel)}

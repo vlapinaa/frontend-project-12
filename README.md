@@ -3,8 +3,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/vlapinaa/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/vlapinaa/frontend-project-12/actions)
 
-
-![alt text](https://i.ibb.co/P10WgvT/felix-Logo.png)
+<img src="https://i.ibb.co/P10WgvT/felix-Logo.png" width="300" >
 
 ### Hexlet chat - это мессенджер, в нем можно создавать, удалять и переименовывать каналы в общем функционала уйма! Делитесь впечатлениями с людьми в hexlet chat и кот феликс вам улыбнется 😉
 
