@@ -9,7 +9,6 @@ import {
   renameChannel,
 } from "store/chatSlice";
 import api from "utils/api";
-import * as filter from "leo-profanity";
 
 import MainLayout from "layouts/main";
 import type { RootState, AppDispatch } from "store/index";
@@ -19,7 +18,6 @@ import MessageActions from "components/MessageActions";
 import type { Channel, Message } from "types";
 
 function ChatPage() {
-  filter.loadDictionary("ru");
   const channels: Channel[] = useSelector(
     (state: RootState) => state.chat.chanells,
   );
