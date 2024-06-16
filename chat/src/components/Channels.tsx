@@ -93,7 +93,11 @@ function Channels({ channels, activeChannel, setChannels }: ChannelsProps) {
               key={channel.id}
               onClick={() => setChannels(channel)}
             >
-              <div># {channel.name}</div>
+              <div>
+                <span># </span>
+                {channel.name}
+              </div>
+
               {channel.removable && (
                 <Dropdown
                   id={channel.id}
