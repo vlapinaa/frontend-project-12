@@ -83,7 +83,7 @@ function Channels({ channels, activeChannel, setChannels }: ChannelsProps) {
     <div className="channels d-flex flex-column align-items-center justify-content-center w-100 h-100">
       <div className="channels__heading d-flex flex-row align-items-center justify-content-between font-weight-bold text-center text-lg-start">
         <div className="m-0">{t("chat.channels.header")}</div>
-        <ChannelAdding />
+        <ChannelAdding setChannels={setChannels} />
       </div>
 
       <div className="channels__list channels-list font-secondary">

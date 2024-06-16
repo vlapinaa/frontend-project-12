@@ -14,7 +14,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "store";
 import { useTranslation } from "react-i18next";
 
-function ChannelAdding() {
+interface ChannelsProps {
+  setChannels: (channel: Channel) => void;
+}
+
+function ChannelAdding({ setChannels }: ChannelsProps) {
   const { t } = useTranslation();
   const notifyChannelAdding = () =>
     toast(t("chat.notifiAdding"), {
@@ -66,8 +70,9 @@ function ChannelAdding() {
   const addChannel = async ({ nameChannel }: FormValues) => {
     try {
       const filterNameChannel = filter.clean(nameChannel);
+      const response = await api.post("/channels", { name: filterNameChannel });
+      setChannels(response.data);
 
-      await api.post("/channels", { name: filterNameChannel });
       notifyChannelAdding();
       handleClose();
     } catch (error) {
