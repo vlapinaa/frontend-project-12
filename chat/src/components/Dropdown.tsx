@@ -1,3 +1,4 @@
+import { NONAME } from "dns";
 import React from "react";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useTranslation } from "react-i18next";
@@ -13,6 +14,7 @@ function Dropdown({ id, setId, setShow, setShowEdit }: DropdownProps) {
   const { t } = useTranslation();
   return (
     <div className="channel-list__dropdown">
+      <span className="visually-hidden">Управление каналом</span>
       <NavDropdown
         id="nav-dropdown-dark-example"
         title=""
