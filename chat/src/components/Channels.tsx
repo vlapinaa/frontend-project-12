@@ -147,6 +147,7 @@ function Channels({ channels, activeChannel, setChannels }: ChannelsProps) {
 
         <Modal.Body className="edit-modal__body">
           <Form onSubmit={editedChannel}>
+            <Form.Label className="visually-hidden">Имя канала</Form.Label>
             <Form.Group className="mb-3" controlId="newNameChannel">
               <Form.Control
                 name="newNameChannel"

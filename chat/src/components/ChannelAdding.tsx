@@ -100,7 +100,9 @@ function ChannelAdding() {
             {({ handleSubmit, errors, touched, values, handleChange }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="nameChannel">
-                  <Form.Label>Имя канала</Form.Label>
+                  <Form.Label className="visually-hidden">
+                    Имя канала
+                  </Form.Label>
                   <Form.Control
                     name="nameChannel"
                     type="text"
