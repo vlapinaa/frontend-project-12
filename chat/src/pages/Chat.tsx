@@ -67,28 +67,14 @@ function ChatPage() {
     socket.on("newMessage", (payload) => {
       dispatch(addMessage(payload));
     });
+
+    return () => {
+      socket.off("newChannel");
+      socket.off("removeChannel");
+      socket.off("renameChannel");
+      socket.off("newMessage");
+    };
   }, [dispatch]);
-
-  // useEffect(() => {
-
-  //   return () => {
-  //     socket.off("removeChannel");
-  //   };
-  // }, [dispatch]);
-
-  // useEffect(() => {
-
-  //   return () => {
-  //     socket.off("renameChannel");
-  //   };
-  // }, [dispatch]);
-
-  // useEffect(() => {
-
-  //   return () => {
-  //     socket.off("newMessage");
-  //   };
-  // }, [dispatch]);
 
   const sendMessage = async (message: string) => {
     try {
