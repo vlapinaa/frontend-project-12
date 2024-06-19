@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import authSliceReducer from "store/authSlice";
 import chatSliceReducer from "store/chatSlice";
-import modalsSliceReducer from "./modalsSlice";
+import modalsSliceReducer from "store/modalsSlice";
 
 const store = configureStore({
   reducer: {

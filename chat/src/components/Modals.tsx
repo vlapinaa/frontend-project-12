@@ -68,6 +68,7 @@ function Modals({ id }: { id: string }) {
       await api.patch(`/channels/${id}`, { name: filterNameChannel });
       notifyEdit();
       dispatch(closeModalEdit());
+      setnewNameChannel("");
     } catch (error) {
       throw new Error(`ooops error: ${error}`);
     }
