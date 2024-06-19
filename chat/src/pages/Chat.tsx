@@ -44,6 +44,10 @@ function ChatPage() {
     if (!activeChannel) {
       setChannels(channels[0]);
     }
+    messagesContainer.current?.scrollTo({
+      top: messagesContainer.current.scrollHeight,
+      behavior: "smooth",
+    });
   }, [channels, activeChannel]);
 
   useEffect(() => {
