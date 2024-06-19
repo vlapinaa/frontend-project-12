@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import * as filter from "leo-profanity";
-import SvgMessageSend from "./SvgMessageSend";
+import SvgMessageSend from "../svg/SvgMessageSend";
 
 function MessageActions({
   sendMessage,
