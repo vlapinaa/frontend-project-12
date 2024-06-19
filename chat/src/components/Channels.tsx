@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -6,7 +6,8 @@ import type { Channel } from "types";
 import ChannelAdding from "components/ChannelAdding";
 
 import { useTranslation } from "react-i18next";
-import Modals from "./Modals";
+import ModalEditChannel from "components/ModalEditChannel";
+import ModalRemoveChannel from "components/ModalRemoveChannel";
 import Dropdown from "./Dropdown";
 
 interface ChannelsProps {
@@ -19,8 +20,6 @@ function Channels({ channels, activeChannel, setChannels }: ChannelsProps) {
   const { t } = useTranslation();
 
   // const classChannel = `channels-list__item ${channel.id === activeChannel?.id ? "channels-list__item--active" : ""}`;
-
-  const [id, setId] = useState("");
 
   return (
     <div className="channels d-flex flex-column align-items-center justify-content-center w-100 h-100">
@@ -49,16 +48,15 @@ function Channels({ channels, activeChannel, setChannels }: ChannelsProps) {
                   {channel.name}
                 </div>
 
-                {channel.removable && (
-                  <Dropdown id={channel.id} setId={setId} />
-                )}
+                {channel.removable && <Dropdown id={channel.id} />}
               </div>
             </button>
           );
         })}
       </div>
 
-      <Modals id={id} />
+      <ModalEditChannel />
+      <ModalRemoveChannel />
       <ToastContainer
         position="top-right"
         autoClose={5000}

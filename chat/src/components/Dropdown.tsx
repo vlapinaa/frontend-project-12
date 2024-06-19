@@ -3,14 +3,17 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "store";
-import { openModalEdit, openModalRemove } from "store/modalsSlice";
+import {
+  openModalEdit,
+  openModalRemove,
+  setChannelId,
+} from "store/modalsSlice";
 
 interface DropdownProps {
   id: string;
-  setId: (value: string) => void;
 }
 
-function Dropdown({ id, setId }: DropdownProps) {
+function Dropdown({ id }: DropdownProps) {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -20,7 +23,7 @@ function Dropdown({ id, setId }: DropdownProps) {
       <NavDropdown
         id="nav-dropdown-dark-example"
         title=""
-        onClick={() => setId(id)}
+        onClick={() => dispatch(setChannelId(id))}
       >
         <NavDropdown.Item
           onClick={() => {

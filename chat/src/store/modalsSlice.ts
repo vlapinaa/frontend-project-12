@@ -1,28 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type State = {
-  showEdit: boolean;
-  showRemove: boolean;
+  isShowEdit: boolean;
+  isShowRemove: boolean;
+  currentChannelId: string;
 };
 
 export const modalsSlice = createSlice({
   name: "modals",
   initialState: {
-    showEdit: false,
-    showRemove: false,
+    isShowEdit: false,
+    isShowRemove: false,
+    currentChannelId: "",
   } as State,
   reducers: {
     openModalEdit: (state) => {
-      state.showEdit = true;
+      state.isShowEdit = true;
     },
     closeModalEdit: (state) => {
-      state.showEdit = false;
+      state.isShowEdit = false;
+      state.currentChannelId = "";
     },
     openModalRemove: (state) => {
-      state.showRemove = true;
+      state.isShowRemove = true;
     },
     closeModalRemove: (state) => {
-      state.showRemove = false;
+      state.isShowRemove = false;
+      state.currentChannelId = "";
+    },
+    setChannelId: (state, action) => {
+      state.currentChannelId = action.payload;
     },
   },
 });
@@ -32,5 +39,6 @@ export const {
   closeModalEdit,
   openModalRemove,
   closeModalRemove,
+  setChannelId,
 } = modalsSlice.actions;
 export default modalsSlice.reducer;

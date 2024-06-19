@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import api from "utils/api";
-import { closeModalEdit, closeModalRemove } from "store/modalsSlice";
+import { closeModalEdit } from "store/modalsSlice";
 import { AppDispatch, RootState, useAppSelector } from "store";
 import { Bounce, toast } from "react-toastify";
 import * as filter from "leo-profanity";
 import { useDispatch } from "react-redux";
 
-function Modals({ id }: { id: string }) {
+function ModalsEdit() {
   const { t } = useTranslation();
   const showEdit: boolean = useAppSelector(
-    (state: RootState) => state.modals.showEdit,
+    (state: RootState) => state.modals.isShowEdit,
   );
-  const showRemove: boolean = useAppSelector(
-    (state: RootState) => state.modals.showRemove,
+  const id: string = useAppSelector(
+    (state: RootState) => state.modals.currentChannelId,
   );
 
   const [newNameChannel, setnewNameChannel] = useState("");
@@ -24,19 +24,6 @@ function Modals({ id }: { id: string }) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setnewNameChannel(event.target.value);
   };
-
-  const notifyDelete = () =>
-    toast(t("chat.notifiDelete"), {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Bounce,
-    });
 
   const notifyEdit = () =>
     toast(t("chat.notifiEdit"), {
@@ -50,16 +37,6 @@ function Modals({ id }: { id: string }) {
       theme: "light",
       transition: Bounce,
     });
-
-  const removeChannel = async () => {
-    try {
-      await api.delete(`/channels/${id}`);
-      notifyDelete();
-      dispatch(closeModalRemove());
-    } catch (error) {
-      throw new Error(`ooops error: ${error}`);
-    }
-  };
 
   const editedChannel = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
@@ -113,37 +90,8 @@ function Modals({ id }: { id: string }) {
           </Form>
         </Modal.Body>
       </Modal>
-      <Modal
-        show={showRemove}
-        onHide={closeModalRemove}
-        className="delete-modal"
-        centered
-      >
-        <Modal.Header closeButton className="delete-modal__header">
-          <Modal.Title>{t("chat.channels.modalDelete.text")}</Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body className="delete-modal__body">
-          <div className="d-flex justify-content-end">
-            <Button
-              variant="secondary"
-              onClick={() => dispatch(closeModalRemove())}
-              className="delete-modal__cancel"
-            >
-              {t("chat.cancel")}
-            </Button>
-            <Button
-              className="delete-modal__submit btn btn-danger"
-              type="submit"
-              onClick={removeChannel}
-            >
-              {t("chat.channels.dropdown.delete")}
-            </Button>
-          </div>
-        </Modal.Body>
-      </Modal>
     </div>
   );
 }
 
-export default Modals;
+export default ModalsEdit;
