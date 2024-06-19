@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { Formik, FormikHelpers } from "formik";
 import { useAppDispatch } from "store";
 
-import { createNewUser } from "store/signupSlice";
+import { createNewUser } from "store/authSlice";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import MainLayout from "layouts/main";

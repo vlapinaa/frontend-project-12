@@ -2,14 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import authSliceReducer from "store/authSlice";
 import chatSliceReducer from "store/chatSlice";
-import signupSliceReducer from "store/signupSlice";
-// import { channelsApi } from "./chatSlice";
+import modalsSliceReducer from "./modalsSlice";
 
 const store = configureStore({
   reducer: {
     auth: authSliceReducer,
     chat: chatSliceReducer,
-    signup: signupSliceReducer,
+    modals: modalsSliceReducer,
   },
 });
 

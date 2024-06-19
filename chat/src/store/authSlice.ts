@@ -27,6 +27,23 @@ export const login = createAsyncThunk(
   },
 );
 
+type NewUser = {
+  username: string;
+  password: string;
+};
+
+export const createNewUser = createAsyncThunk(
+  "auth/newuser",
+  async (newUser: NewUser, { rejectWithValue }) => {
+    try {
+      const { data } = await api.post("/signup", newUser);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
 const initialState: State = {
   token: localStorage.getItem("token") || "",
   name: localStorage.getItem("username") || "",
@@ -45,6 +62,16 @@ export const authSlice = createSlice({
     });
 
     builder.addCase(login.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.token = action.payload.token;
+      state.name = action.payload.username;
+
+      localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("username", action.payload.username);
+      redirect(routes.main);
+    });
+
+    builder.addCase(createNewUser.fulfilled, (state, action) => {
       state.isLoading = false;
       state.token = action.payload.token;
       state.name = action.payload.username;
