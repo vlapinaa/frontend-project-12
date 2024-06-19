@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { RootState } from "store";
+import routes from "helpers/routes";
 
 function PrivateRoute({
   Component,
@@ -13,10 +14,10 @@ function PrivateRoute({
   const token = useSelector((state: RootState) => state.auth.token);
 
   if (unauthorizedOnly) {
-    return token ? <Navigate to="/" /> : <Component />;
+    return token ? <Navigate to={routes.main} /> : <Component />;
   }
 
-  return token ? <Component /> : <Navigate to="/login" />;
+  return token ? <Component /> : <Navigate to={routes.login} />;
 }
 
 PrivateRoute.defaultProps = {

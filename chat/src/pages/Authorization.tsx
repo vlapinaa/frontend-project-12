@@ -9,6 +9,7 @@ import { useAppDispatch } from "store";
 import { login } from "store/authSlice";
 import { useTranslation } from "react-i18next";
 import MainLayout from "layouts/main";
+import routes from "helpers/routes";
 
 function AuthorizationPage() {
   const { t } = useTranslation();
@@ -111,7 +112,7 @@ function AuthorizationPage() {
 
               <div className="auth-signup">
                 <span>{t("auth.authSignup.text")}</span>
-                <Link to="/signup" className="auth-signup__link">
+                <Link to={routes.signup} className="auth-signup__link">
                   {t("auth.authSignup.link")}
                 </Link>
               </div>

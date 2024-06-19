@@ -10,6 +10,7 @@ import { createNewUser } from "store/signupSlice";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import MainLayout from "layouts/main";
+import routes from "helpers/routes";
 
 function SignUp() {
   const { t } = useTranslation();
@@ -147,7 +148,7 @@ function SignUp() {
               <div className="auth-link">
                 <span>{t("signup.auth.text")}</span>
                 <br />
-                <Link to="/login" className="auth-signup__link">
+                <Link to={routes.login} className="auth-signup__link">
                   {t("signup.auth.link")}
                 </Link>
               </div>
