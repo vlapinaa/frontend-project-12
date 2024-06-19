@@ -1,16 +1,19 @@
 import React from "react";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "store";
+import { openModalEdit, openModalRemove } from "store/modalsSlice";
 
 interface DropdownProps {
   id: string;
   setId: (value: string) => void;
-  setShow: (value: boolean) => void;
-  setShowEdit: (value: boolean) => void;
 }
 
-function Dropdown({ id, setId, setShow, setShowEdit }: DropdownProps) {
+function Dropdown({ id, setId }: DropdownProps) {
   const { t } = useTranslation();
+  const dispatch = useDispatch<AppDispatch>();
+
   return (
     <div className="channel-list__dropdown">
       <span className="visually-hidden">Управление каналом</span>
@@ -21,14 +24,14 @@ function Dropdown({ id, setId, setShow, setShowEdit }: DropdownProps) {
       >
         <NavDropdown.Item
           onClick={() => {
-            setShow(true);
+            dispatch(openModalRemove());
           }}
         >
           {t("chat.channels.dropdown.delete")}
         </NavDropdown.Item>
         <NavDropdown.Item
           onClick={() => {
-            setShowEdit(true);
+            dispatch(openModalEdit());
           }}
         >
           {t("chat.channels.dropdown.editName")}
