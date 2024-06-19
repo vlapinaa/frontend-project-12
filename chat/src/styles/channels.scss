@@ -26,6 +26,10 @@ $border-color: #cfd0d3;
 
     font-size: 20px;
 
+    >button {
+        overflow: visible !important;
+    }
+
     &__item {
         display: flex;
         justify-content: space-between;

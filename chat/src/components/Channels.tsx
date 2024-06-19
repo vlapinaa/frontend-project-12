@@ -98,20 +98,23 @@ function Channels({ channels, activeChannel, setChannels }: ChannelsProps) {
               type="button"
               key={channel.id}
               onClick={() => setChannels(channel)}
+              style={{ overflow: "auto !important" }}
             >
-              <div>
-                <span># </span>
-                {channel.name}
-              </div>
+              <div className="d-flex justify-content-between">
+                <div>
+                  <span># </span>
+                  {channel.name}
+                </div>
 
-              {channel.removable && (
-                <Dropdown
-                  id={channel.id}
-                  setId={setId}
-                  setShow={setShow}
-                  setShowEdit={setShowEdit}
-                />
-              )}
+                {channel.removable && (
+                  <Dropdown
+                    id={channel.id}
+                    setId={setId}
+                    setShow={setShow}
+                    setShowEdit={setShowEdit}
+                  />
+                )}
+              </div>
             </button>
           );
         })}
