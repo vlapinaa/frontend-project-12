@@ -53,7 +53,6 @@ function ChatPage() {
   useEffect(() => {
     socket.on("newChannel", (channel: Channel) => {
       dispatch(addChannel(channel));
-      setChannels(channel);
     });
 
     socket.on("removeChannel", () => {
