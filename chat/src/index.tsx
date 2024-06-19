@@ -17,7 +17,7 @@ import "styles/index.scss";
 import { Provider as PrRolls } from "@rollbar/react"; // Provider imports 'rollbar'
 
 const rollbarConfig = {
-  accessToken: "ab6b68d596894999b84ccab79c06c50c",
+  accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
   environment: "testenv",
 };
 
