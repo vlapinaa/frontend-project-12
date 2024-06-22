@@ -1,32 +1,36 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type State = {
-  isShowEdit: boolean;
-  isShowRemove: boolean;
+  isShow: boolean;
+  type: string;
   currentChannelId: string;
 };
 
 export const modalsSlice = createSlice({
   name: "modals",
   initialState: {
-    isShowEdit: false,
-    isShowRemove: false,
+    isShow: false,
+    type: "",
     currentChannelId: "",
   } as State,
   reducers: {
     openModalEdit: (state) => {
-      state.isShowEdit = true;
+      state.isShow = true;
+      state.type = "edit";
     },
     closeModalEdit: (state) => {
-      state.isShowEdit = false;
+      state.isShow = false;
       state.currentChannelId = "";
+      state.type = "";
     },
     openModalRemove: (state) => {
-      state.isShowRemove = true;
+      state.isShow = true;
+      state.type = "remove";
     },
     closeModalRemove: (state) => {
-      state.isShowRemove = false;
+      state.isShow = false;
       state.currentChannelId = "";
+      state.type = "";
     },
     setChannelId: (state, action) => {
       state.currentChannelId = action.payload;

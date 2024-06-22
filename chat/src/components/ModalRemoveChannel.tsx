@@ -6,17 +6,19 @@ import { closeModalRemove } from "store/modalsSlice";
 import { AppDispatch, RootState, useAppSelector } from "store";
 import { Bounce, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import routesAPI from "helpers/routesAPI";
 
 function Modals() {
   const { t } = useTranslation();
 
-  const showRemove: boolean = useAppSelector(
-    (state: RootState) => state.modals.isShowRemove,
+  const isShow: boolean = useAppSelector(
+    (state: RootState) => state.modals.isShow,
   );
+  const type: string = useAppSelector((state: RootState) => state.modals.type);
   const id: string = useAppSelector(
     (state: RootState) => state.modals.currentChannelId,
   );
-
+  const isShowRemove = type === "remove" && isShow;
   const dispatch = useDispatch<AppDispatch>();
 
   const notifyDelete = () =>
@@ -34,7 +36,7 @@ function Modals() {
 
   const removeChannel = async () => {
     try {
-      await api.delete(`/channels/${id}`);
+      await api.delete(`${routesAPI.channels}/${id}`);
       notifyDelete();
       dispatch(closeModalRemove());
     } catch (error) {
@@ -45,8 +47,8 @@ function Modals() {
   return (
     <div>
       <Modal
-        show={showRemove}
-        onHide={closeModalRemove}
+        show={isShowRemove}
+        onHide={() => dispatch(closeModalRemove())}
         className="delete-modal"
         centered
       >

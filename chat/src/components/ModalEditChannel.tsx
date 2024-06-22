@@ -7,16 +7,18 @@ import { AppDispatch, RootState, useAppSelector } from "store";
 import { Bounce, toast } from "react-toastify";
 import * as filter from "leo-profanity";
 import { useDispatch } from "react-redux";
+import routesAPI from "helpers/routesAPI";
 
 function ModalsEdit() {
   const { t } = useTranslation();
-  const showEdit: boolean = useAppSelector(
-    (state: RootState) => state.modals.isShowEdit,
+  const isShow: boolean = useAppSelector(
+    (state: RootState) => state.modals.isShow,
   );
+  const type: string = useAppSelector((state: RootState) => state.modals.type);
   const id: string = useAppSelector(
     (state: RootState) => state.modals.currentChannelId,
   );
-
+  const isShowEdit = type === "edit" && isShow;
   const [newNameChannel, setnewNameChannel] = useState("");
 
   const dispatch = useDispatch<AppDispatch>();
@@ -42,7 +44,9 @@ function ModalsEdit() {
     try {
       e.preventDefault();
       const filterNameChannel = filter.clean(newNameChannel);
-      await api.patch(`/channels/${id}`, { name: filterNameChannel });
+      await api.patch(`${routesAPI.channels}/${id}`, {
+        name: filterNameChannel,
+      });
       notifyEdit();
       dispatch(closeModalEdit());
       setnewNameChannel("");
@@ -54,8 +58,8 @@ function ModalsEdit() {
   return (
     <div>
       <Modal
-        show={showEdit}
-        onHide={closeModalEdit}
+        show={isShowEdit}
+        onHide={() => dispatch(closeModalEdit())}
         className="edit-modal"
         centered
       >
