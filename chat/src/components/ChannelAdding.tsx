@@ -13,6 +13,7 @@ import { Channel } from "types";
 import { useSelector } from "react-redux";
 import { RootState } from "store";
 import { useTranslation } from "react-i18next";
+import routesAPI from "helpers/routesAPI";
 
 interface ChannelsProps {
   setChannels: (channel: Channel) => void;
@@ -70,7 +71,9 @@ function ChannelAdding({ setChannels }: ChannelsProps) {
   const addChannel = async ({ nameChannel }: FormValues) => {
     try {
       const filterNameChannel = filter.clean(nameChannel);
-      const response = await api.post("/channels", { name: filterNameChannel });
+      const response = await api.post(routesAPI.channels, {
+        name: filterNameChannel,
+      });
       setChannels(response.data);
 
       notifyChannelAdding();

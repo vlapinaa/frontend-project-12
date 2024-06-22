@@ -16,6 +16,7 @@ import Messages from "components/Message";
 import Channels from "components/Channels";
 import MessageActions from "components/MessageActions";
 import type { Channel, Message } from "types";
+import routesAPI from "helpers/routesAPI";
 
 function ChatPage() {
   const channels: Channel[] = useSelector(
@@ -77,7 +78,7 @@ function ChatPage() {
 
   const sendMessage = async (message: string) => {
     try {
-      await api.post("/messages", {
+      await api.post(routesAPI.messages, {
         body: message,
         channelId: activeChannel?.id,
         username,

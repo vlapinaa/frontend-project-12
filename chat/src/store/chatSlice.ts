@@ -5,6 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 import api from "utils/api";
 import type { Channel, Message } from "types";
+import routesAPI from "helpers/routesAPI";
 
 type State = {
   chanells: Channel[];
@@ -14,7 +15,7 @@ type State = {
 export const fetchChanells = createAsyncThunk(
   "chat/fetchChanells",
   async () => {
-    const { data } = await api.get("/channels");
+    const { data } = await api.get(routesAPI.channels);
     return data;
   },
 );
@@ -22,7 +23,7 @@ export const fetchChanells = createAsyncThunk(
 export const fetchMessages = createAsyncThunk(
   "chat/fetchMessages",
   async () => {
-    const { data } = await api.get("/messages");
+    const { data } = await api.get(routesAPI.messages);
     return data;
   },
 );

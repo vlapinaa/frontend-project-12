@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "utils/api";
 import { redirect } from "react-router-dom";
 import routes from "helpers/routes";
+import routesAPI from "helpers/routesAPI";
 
 type State = {
   token: string;
@@ -19,7 +20,7 @@ export const login = createAsyncThunk(
   "auth/login",
   async (values: Values, { rejectWithValue }) => {
     try {
-      const { data } = await api.post("/login", values);
+      const { data } = await api.post(routesAPI.auth, values);
       return data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -36,7 +37,7 @@ export const createNewUser = createAsyncThunk(
   "auth/newuser",
   async (newUser: NewUser, { rejectWithValue }) => {
     try {
-      const { data } = await api.post("/signup", newUser);
+      const { data } = await api.post(routesAPI.newUser, newUser);
       return data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
