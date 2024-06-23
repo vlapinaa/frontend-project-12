@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import socket from "socket";
 import {
   fetchChanells,
   fetchMessages,
@@ -17,8 +16,9 @@ import Channels from "components/Channels";
 import MessageActions from "components/MessageActions";
 import type { Channel, Message } from "types";
 import routesAPI from "helpers/routesAPI";
+import { Socket } from "socket.io-client";
 
-function ChatPage() {
+function ChatPage({ socket }: { socket: Socket }) {
   const channels: Channel[] = useSelector(
     (state: RootState) => state.chat.chanells,
   );
@@ -74,7 +74,7 @@ function ChatPage() {
       socket.off("renameChannel");
       socket.off("newMessage");
     };
-  }, [dispatch]);
+  }, [dispatch, socket]);
 
   const sendMessage = async (message: string) => {
     try {

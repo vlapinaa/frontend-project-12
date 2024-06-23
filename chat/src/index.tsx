@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
+import { Socket, io } from "socket.io-client";
 
 import "utils/i18next";
 import store from "store/index";
@@ -26,6 +27,8 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 
+const socket = io();
+
 root.render(
   <BrowserRouter>
     <PrRolls config={rollbarConfig}>
@@ -33,7 +36,7 @@ root.render(
         <Routes>
           <Route
             path={routes.main}
-            element={<PrivateRoute Component={ChatPage} />}
+            element={<PrivateRoute Component={<ChatPage socket={socket} />} />}
           />
 
           <Route
@@ -49,7 +52,6 @@ root.render(
               <PrivateRoute Component={RegistrationPage} unauthorizedOnly />
             }
           />
-
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Provider>
