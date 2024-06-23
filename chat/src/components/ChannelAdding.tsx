@@ -7,13 +7,10 @@ import * as yup from "yup";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import * as filter from "leo-profanity";
+import { useAddChannelMutation, useFetchChanellsQuery } from "store/chatApi";
 
-import api from "utils/api";
 import { Channel } from "types";
-import { useSelector } from "react-redux";
-import { RootState } from "store";
 import { useTranslation } from "react-i18next";
-import routesAPI from "helpers/routesAPI";
 
 interface ChannelsProps {
   setChannels: (channel: Channel) => void;
@@ -33,9 +30,8 @@ function ChannelAdding({ setChannels }: ChannelsProps) {
       theme: "light",
       transition: Bounce,
     });
-  const channels: Channel[] = useSelector(
-    (state: RootState) => state.chat.chanells,
-  );
+
+  const { data: channels = [] } = useFetchChanellsQuery();
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -68,19 +64,18 @@ function ChannelAdding({ setChannels }: ChannelsProps) {
       }),
   });
 
-  const addChannel = async ({ nameChannel }: FormValues) => {
-    try {
-      const filterNameChannel = filter.clean(nameChannel);
-      const response = await api.post(routesAPI.channels, {
-        name: filterNameChannel,
-      });
-      setChannels(response.data);
+  const [addNewChannel] = useAddChannelMutation();
 
-      notifyChannelAdding();
-      handleClose();
-    } catch (error) {
-      throw new Error(`ooops error: ${error}`);
+  const addChannelSend = async ({ nameChannel }: FormValues) => {
+    const filterNameChannel = filter.clean(nameChannel);
+    const response: any = await addNewChannel(filterNameChannel);
+
+    if (response.data) {
+      setChannels(response.data);
     }
+
+    notifyChannelAdding();
+    handleClose();
   };
 
   return (
@@ -103,7 +98,7 @@ function ChannelAdding({ setChannels }: ChannelsProps) {
             validationSchema={AddingSchema}
             validateOnChange={false}
             validateOnBlur={false}
-            onSubmit={addChannel}
+            onSubmit={addChannelSend}
           >
             {({ handleSubmit, errors, touched, values, handleChange }) => (
               <Form noValidate onSubmit={handleSubmit}>

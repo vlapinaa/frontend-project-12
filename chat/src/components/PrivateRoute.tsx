@@ -14,10 +14,10 @@ function PrivateRoute({
   const token = useSelector((state: RootState) => state.auth.token);
 
   if (unauthorizedOnly) {
-    return token ? <Navigate to={routes.main} /> : <Component />;
+    return token ? <Navigate to={routes.main} /> : Component;
   }
 
-  return token ? <Component /> : <Navigate to={routes.login} />;
+  return token ? Component : <Navigate to={routes.login} />;
 }
 
 PrivateRoute.defaultProps = {

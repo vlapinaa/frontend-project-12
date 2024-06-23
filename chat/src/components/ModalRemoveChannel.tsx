@@ -1,12 +1,11 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import api from "utils/api";
 import { closeModalRemove } from "store/modalsSlice";
 import { AppDispatch, RootState, useAppSelector } from "store";
 import { Bounce, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import routesAPI from "helpers/routesAPI";
+import { useRemoveChannelMutation } from "store/chatApi";
 
 function Modals() {
   const { t } = useTranslation();
@@ -34,14 +33,12 @@ function Modals() {
       transition: Bounce,
     });
 
-  const removeChannel = async () => {
-    try {
-      await api.delete(`${routesAPI.channels}/${id}`);
-      notifyDelete();
-      dispatch(closeModalRemove());
-    } catch (error) {
-      throw new Error(`ooops error: ${error}`);
-    }
+  const [removeChannel] = useRemoveChannelMutation();
+
+  const removeChannels = () => {
+    removeChannel(id);
+    notifyDelete();
+    dispatch(closeModalRemove());
   };
 
   return (
@@ -68,7 +65,7 @@ function Modals() {
             <Button
               className="delete-modal__submit btn btn-danger"
               type="submit"
-              onClick={removeChannel}
+              onClick={removeChannels}
             >
               {t("chat.channels.dropdown.delete")}
             </Button>

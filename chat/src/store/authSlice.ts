@@ -1,8 +1,7 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import api from "utils/api";
+import { createSlice } from "@reduxjs/toolkit";
 import { redirect } from "react-router-dom";
 import routes from "helpers/routes";
-import routesAPI from "helpers/routesAPI";
+import { authApi } from "store/authApi";
 
 type State = {
   token: string;
@@ -10,40 +9,6 @@ type State = {
   isLoading: boolean;
   error: undefined | string;
 };
-
-type Values = {
-  username: string;
-  password: string;
-};
-
-export const login = createAsyncThunk(
-  "auth/login",
-  async (values: Values, { rejectWithValue }) => {
-    try {
-      const { data } = await api.post(routesAPI.auth, values);
-      return data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
-    }
-  },
-);
-
-type NewUser = {
-  username: string;
-  password: string;
-};
-
-export const createNewUser = createAsyncThunk(
-  "auth/newuser",
-  async (newUser: NewUser, { rejectWithValue }) => {
-    try {
-      const { data } = await api.post(routesAPI.newUser, newUser);
-      return data;
-    } catch (error: any) {
-      return rejectWithValue(error.response.data);
-    }
-  },
-);
 
 const initialState: State = {
   token: localStorage.getItem("token") || "",
@@ -57,35 +22,28 @@ export const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(login.pending, (state) => {
-      state.error = undefined;
-      state.isLoading = true;
-    });
+    builder.addMatcher(
+      authApi.endpoints.auth.matchFulfilled,
+      (state, { payload }) => {
+        state.token = payload.token;
+        state.name = payload.username;
 
-    builder.addCase(login.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.token = action.payload.token;
-      state.name = action.payload.username;
+        localStorage.setItem("token", payload.token);
+        localStorage.setItem("username", payload.username);
+        redirect(routes.main);
+      },
+    );
+    builder.addMatcher(
+      authApi.endpoints.signUp.matchFulfilled,
+      (state, { payload }) => {
+        state.token = payload.token;
+        state.name = payload.username;
 
-      localStorage.setItem("token", action.payload.token);
-      localStorage.setItem("username", action.payload.username);
-      redirect(routes.main);
-    });
-
-    builder.addCase(createNewUser.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.token = action.payload.token;
-      state.name = action.payload.username;
-
-      localStorage.setItem("token", action.payload.token);
-      localStorage.setItem("username", action.payload.username);
-      redirect(routes.main);
-    });
-
-    builder.addCase(login.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message || "";
-    });
+        localStorage.setItem("token", payload.token);
+        localStorage.setItem("username", payload.username);
+        redirect(routes.main);
+      },
+    );
   },
 });
 

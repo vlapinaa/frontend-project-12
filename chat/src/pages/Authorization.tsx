@@ -4,17 +4,13 @@ import * as yup from "yup";
 import { Formik, type FormikHelpers } from "formik";
 import { Link } from "react-router-dom";
 
-import { useAppDispatch } from "store";
-
-import { login } from "store/authSlice";
+import { useAuthMutation } from "store/authApi";
 import { useTranslation } from "react-i18next";
 import MainLayout from "layouts/main";
 import routes from "helpers/routes";
 
 function AuthorizationPage() {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
-
   interface FormValues {
     username: string;
     password: string;
@@ -30,24 +26,24 @@ function AuthorizationPage() {
     password: yup.string().required(t("shema.required")),
   });
 
+  const [login] = useAuthMutation();
+
   const handleSubmitForm = async (
     values: FormValues,
     { setErrors }: FormikHelpers<FormValues>,
   ) => {
-    const response = await dispatch(login(values));
+    const response: any = await login(values);
 
-    if (response.meta.requestStatus === "rejected") {
-      if (response.payload.statusCode === 401) {
-        setErrors({
-          username: " ",
-          password: t("alert.auth"),
-        });
-      } else {
-        setErrors({
-          username: " ",
-          password: response.payload.message,
-        });
-      }
+    if (response.error.status === 401) {
+      setErrors({
+        username: " ",
+        password: t("alert.auth"),
+      });
+    } else {
+      setErrors({
+        username: " ",
+        password: response.error.data.message,
+      });
     }
   };
 

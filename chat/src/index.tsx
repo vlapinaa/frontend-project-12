@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import { Socket, io } from "socket.io-client";
+import { io } from "socket.io-client";
 
 import "utils/i18next";
 import store from "store/index";
@@ -42,14 +42,17 @@ root.render(
           <Route
             path={routes.login}
             element={
-              <PrivateRoute Component={AuthorizationPage} unauthorizedOnly />
+              <PrivateRoute
+                Component={<AuthorizationPage />}
+                unauthorizedOnly
+              />
             }
           />
 
           <Route
             path={routes.signup}
             element={
-              <PrivateRoute Component={RegistrationPage} unauthorizedOnly />
+              <PrivateRoute Component={<RegistrationPage />} unauthorizedOnly />
             }
           />
           <Route path="*" element={<ErrorPage />} />

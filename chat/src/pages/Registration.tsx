@@ -1,12 +1,9 @@
-/* eslint-disable jsx-a11y/no-autofocus */
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import * as yup from "yup";
 import { Formik, FormikHelpers } from "formik";
-import { useAppDispatch } from "store";
-
-import { createNewUser } from "store/authSlice";
+import { useSignUpMutation } from "store/authApi";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import MainLayout from "layouts/main";
@@ -14,8 +11,6 @@ import routes from "helpers/routes";
 
 function SignUp() {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
-
   interface FormValues {
     username: string;
     password: string;
@@ -44,28 +39,29 @@ function SignUp() {
       .required(t("shema.required")),
   });
 
+  const [createNewUser] = useSignUpMutation();
+
   const handleSubmitForm = async (
     values: FormValues,
     { setErrors }: FormikHelpers<FormValues>,
   ) => {
-    const response = await dispatch(
-      createNewUser({ username: values.username, password: values.password }),
-    );
+    const response: any = await createNewUser({
+      username: values.username,
+      password: values.password,
+    });
 
-    if (response.meta.requestStatus === "rejected") {
-      if (response.payload.statusCode === 409) {
-        setErrors({
-          username: " ",
-          password: " ",
-          confirmpass: "Такой пользователь уже существует",
-        });
-      } else {
-        setErrors({
-          username: " ",
-          password: " ",
-          confirmpass: response.payload.message,
-        });
-      }
+    if (response.error.status === 409) {
+      setErrors({
+        username: " ",
+        password: " ",
+        confirmpass: "Такой пользователь уже существует",
+      });
+    } else {
+      setErrors({
+        username: " ",
+        password: " ",
+        confirmpass: response.error.data.message,
+      });
     }
   };
 

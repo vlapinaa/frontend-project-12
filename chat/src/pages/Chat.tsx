@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 import {
-  fetchChanells,
-  fetchMessages,
-  addMessage,
-  addChannel,
-  renameChannel,
-} from "store/chatSlice";
-import api from "utils/api";
+  useFetchChanellsQuery,
+  useFetchMessagesQuery,
+  useAddMessageMutation,
+} from "store/chatApi";
 
 import MainLayout from "layouts/main";
 import type { RootState, AppDispatch } from "store/index";
@@ -15,17 +13,22 @@ import Messages from "components/Message";
 import Channels from "components/Channels";
 import MessageActions from "components/MessageActions";
 import type { Channel, Message } from "types";
-import routesAPI from "helpers/routesAPI";
 import { Socket } from "socket.io-client";
 
 function ChatPage({ socket }: { socket: Socket }) {
-  const channels: Channel[] = useSelector(
-    (state: RootState) => state.chat.chanells,
-  );
+  // const channels: Channel[] = useSelector(
+  //   (state: RootState) => state.chat.chanells,
+  // );
+  // const messages = useSelector((state: RootState) => state.chat.messages);
 
-  const messages = useSelector((state: RootState) => state.chat.messages);
+  const { data: channels = [], refetch: refetchChannel } =
+    useFetchChanellsQuery();
+  const { data: messages = [], refetch: refetchMessage } =
+    useFetchMessagesQuery();
+
+  const [addNewMessage] = useAddMessageMutation();
+
   const username = useSelector((state: RootState) => state.auth.name);
-  const token = useSelector((state: RootState) => state.auth.token);
 
   const messagesContainer = useRef<HTMLInputElement>(null);
 
@@ -34,15 +37,7 @@ function ChatPage({ socket }: { socket: Socket }) {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(fetchChanells());
-  }, [dispatch, token]);
-
-  useEffect(() => {
-    dispatch(fetchMessages());
-  }, [dispatch, activeChannel, token]);
-
-  useEffect(() => {
-    if (!activeChannel) {
+    if (!activeChannel && channels) {
       setChannels(channels[0]);
     }
     messagesContainer.current?.scrollTo({
@@ -52,20 +47,20 @@ function ChatPage({ socket }: { socket: Socket }) {
   }, [channels, activeChannel]);
 
   useEffect(() => {
-    socket.on("newChannel", (channel: Channel) => {
-      dispatch(addChannel(channel));
+    socket.on("newChannel", () => {
+      refetchChannel();
     });
 
     socket.on("removeChannel", () => {
-      dispatch(fetchChanells());
+      refetchChannel();
     });
 
-    socket.on("renameChannel", (channel: Channel) => {
-      dispatch(renameChannel(channel));
+    socket.on("renameChannel", () => {
+      refetchChannel();
     });
 
-    socket.on("newMessage", (payload) => {
-      dispatch(addMessage(payload));
+    socket.on("newMessage", () => {
+      refetchMessage();
     });
 
     return () => {
@@ -74,26 +69,23 @@ function ChatPage({ socket }: { socket: Socket }) {
       socket.off("renameChannel");
       socket.off("newMessage");
     };
-  }, [dispatch, socket]);
+  }, [dispatch, socket, refetchMessage, refetchChannel]);
 
   const sendMessage = async (message: string) => {
-    try {
-      await api.post(routesAPI.messages, {
-        body: message,
-        channelId: activeChannel?.id,
-        username,
-      });
+    const newMessage = {
+      body: message,
+      channelId: activeChannel?.id,
+      username,
+    };
+    addNewMessage(newMessage);
 
-      messagesContainer.current?.scrollTo({
-        top: messagesContainer.current.scrollHeight,
-        behavior: "smooth",
-      });
-    } catch (error) {
-      throw new Error(`ooops ${error}`);
-    }
+    messagesContainer.current?.scrollTo({
+      top: messagesContainer.current.scrollHeight,
+      behavior: "smooth",
+    });
   };
 
-  const activeMessages: Message[] = messages?.filter(
+  const activeMessages: Message[] | undefined = messages?.filter(
     (message) => message.channelId === activeChannel?.id,
   );
 
