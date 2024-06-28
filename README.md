@@ -1,11 +1,8 @@
 
 
-### Hexlet tests and linter status:
-[![Actions Status](https://github.com/vlapinaa/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/vlapinaa/frontend-project-12/actions)
-
 <img src="https://i.ibb.co/P10WgvT/felix-Logo.png" width="300" >
 
-### Hexlet chat -  это упрощенная версия Slack Chat (приложение React/Redux в реальном времени), здесь можно создавать, удалять и переименовывать каналы. В общем функционала уйма, пользуйтесь!
+### Felix chat -  это упрощенная версия Slack Chat (приложение React/Redux в реальном времени), здесь можно создавать, удалять и переименовывать каналы. В общем функционала уйма, пользуйтесь!
 
 
 #### Страница входа:
