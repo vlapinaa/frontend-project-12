@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import api from "utils/api";
+// import api from "utils/api";
 import { closeModalEdit } from "store/modalsSlice";
 import { AppDispatch, RootState, useAppSelector } from "store";
 import { Bounce, toast } from "react-toastify";
 import * as filter from "leo-profanity";
 import { useDispatch } from "react-redux";
 import routesAPI from "helpers/routesAPI";
+import { useRenameChannelMutation } from "store/chatApi";
 
 function ModalsEdit() {
   const { t } = useTranslation();
@@ -40,19 +41,15 @@ function ModalsEdit() {
       transition: Bounce,
     });
 
+  const [renameChannel] = useRenameChannelMutation();
+
   const editedChannel = async (e: React.FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
-      const filterNameChannel = filter.clean(newNameChannel);
-      await api.patch(`${routesAPI.channels}/${id}`, {
-        name: filterNameChannel,
-      });
-      notifyEdit();
-      dispatch(closeModalEdit());
-      setnewNameChannel("");
-    } catch (error) {
-      throw new Error(`ooops error: ${error}`);
-    }
+    e.preventDefault();
+    const filterNameChannel = filter.clean(newNameChannel);
+    renameChannel({ id, name: filterNameChannel });
+    notifyEdit();
+    dispatch(closeModalEdit());
+    setnewNameChannel("");
   };
 
   return (

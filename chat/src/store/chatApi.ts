@@ -3,6 +3,11 @@ import apiQuery from "utils/apiQuery";
 import type { Channel, Message, NewMessage } from "types";
 import routesAPI from "helpers/routesAPI";
 
+interface Values {
+  id: string;
+  name: string;
+}
+
 export const chatApi = createApi({
   reducerPath: "chatApi",
   baseQuery: fetchBaseQuery(apiQuery),
@@ -35,10 +40,13 @@ export const chatApi = createApi({
         method: "DELETE",
       }),
     }),
-    renameChannel: builder.mutation<Channel, string>({
-      query: (id) => ({
-        url: `${routesAPI.channels}/${id}`,
-        method: "DELETE",
+    renameChannel: builder.mutation<Channel, Values>({
+      query: (values) => ({
+        url: `${routesAPI.channels}/${values.id}`,
+        method: "PATCH",
+        body: {
+          name: values.name,
+        },
       }),
     }),
   }),
@@ -50,6 +58,7 @@ const {
   useAddMessageMutation,
   useAddChannelMutation,
   useRemoveChannelMutation,
+  useRenameChannelMutation,
 } = chatApi;
 
 export {
@@ -58,4 +67,5 @@ export {
   useAddMessageMutation,
   useAddChannelMutation,
   useRemoveChannelMutation,
+  useRenameChannelMutation,
 };

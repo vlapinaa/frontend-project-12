@@ -14,7 +14,7 @@ function Header() {
     <div className="header">
       <Link to={routes.main} className="header__logo">
         <img src="https://i.ibb.co/P10WgvT/felix-Logo.png" alt="felix" />
-        <p className="header__text">Hexlet Chat</p>
+        <p className="header__text">Felix Chat</p>
       </Link>
       {localStorage.getItem("token") && (
         <button type="button" className="exit-chat" onClick={handleExit}>

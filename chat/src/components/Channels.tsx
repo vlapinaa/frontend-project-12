@@ -32,24 +32,18 @@ function Channels({ channels, activeChannel, setChannels }: ChannelsProps) {
         {channels.map((channel) => {
           return (
             <button
-              className={
-                channel.id === activeChannel?.id
-                  ? "w-100 rounded-0 text-start text-truncate btn btn-secondary"
-                  : "w-100 rounded-0 text-start text-truncate btn"
-              }
+              className={`channels-list__item ${channel.id === activeChannel?.id ? "channels-list__item--active" : ""}`}
               type="button"
               key={channel.id}
               onClick={() => setChannels(channel)}
               style={{ overflow: "auto !important" }}
             >
-              <div className="d-flex justify-content-between">
-                <div>
-                  <span># </span>
-                  {channel.name}
-                </div>
-
-                {channel.removable && <Dropdown id={channel.id} />}
+              <div>
+                <span># </span>
+                {channel.name}
               </div>
+
+              {channel.removable && <Dropdown id={channel.id} />}
             </button>
           );
         })}
